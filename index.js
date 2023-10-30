@@ -10,18 +10,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(routes);
 
-const PORT = 4000
+require("dotenv").config();
 
-app.listen(PORT, () => {
-  console.log(`API listening on PORT ${PORT} `)
-})
+mongoose.connect(process.env.MONGODB_URI).then(() => console.log("Connected!"));
 
-app.get('/', (req, res) => {
-  res.send('Hey this is my API running 🥳')
-})
-
-app.get('/about', (req, res) => {
-  res.send('This is my about route..... ')
-})
-
-module.exports = app
+app.listen(process.env.SERVER_PORT, () => {
+  console.log(`The server started on ${process.env.SERVER_PORT}`);
+});
