@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs")
 const User = require("../models/User")
-const { generateAccessToken } = require("../auth")
+const { generateAccessToken } = require("../middlewares/auth")
 
 const auth = {
   signIn: (req, res) => {
@@ -25,7 +25,7 @@ const auth = {
               message: "Invalid password",
             })
 
-          const token = generateAccessToken({ userId: user._id })
+          const token = generateAccessToken({ userId: user._id, username })
 
           return res.json({
             success: true,
@@ -46,22 +46,37 @@ const auth = {
   signUp: (req, res) => {
     const { username, password, latitude, longitude } = req.body
 
-    const user = new User({
-      username,
-      password,
-      location: {
-        lat: latitude,
-        long: longitude,
-      },
-    })
+    User.findOne({ username })
+      .then((user) => {
+        if (user)
+          return res.json({
+            success: false,
+            message: "username is unavailable",
+          })
 
-    user
-      .save()
-      .then(() => {
-        res.json({
-          success: true,
-          message: "User registered successfully",
+        const newUser = new User({
+          username,
+          password,
+          location: {
+            lat: latitude,
+            long: longitude,
+          },
         })
+
+        newUser
+          .save()
+          .then(() => {
+            res.json({
+              success: true,
+              message: "User registered successfully",
+            })
+          })
+          .catch((err) => {
+            res.json({
+              success: false,
+              message: err.message,
+            })
+          })
       })
       .catch((err) => {
         res.json({

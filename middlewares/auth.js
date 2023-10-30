@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: "1800s" })
+function generateAccessToken(userInfo) {
+  return jwt.sign(userInfo, process.env.TOKEN_SECRET, { expiresIn: "1800s" })
 }
 
 function authenticateToken(req, res, next) {
@@ -11,6 +11,7 @@ function authenticateToken(req, res, next) {
 
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403)
+    console.log({ user })
 
     req.user = user
 
