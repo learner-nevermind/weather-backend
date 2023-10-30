@@ -1,5 +1,5 @@
-const SALT_WORK_FACTOR = 10;
+const SALT_WORK_FACTOR = 10
 
 module.exports = {
   SALT_WORK_FACTOR,
-};
+}
