@@ -1,21 +1,20 @@
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const routes = require("./routes");
+// index.js
+const express = require('express')
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
-app.use(routes);
+const app = express()
+const PORT = 4000
 
-require("dotenv").config();
+app.listen(PORT, () => {
+  console.log(`API listening on PORT ${PORT} `)
+})
 
-mongoose.connect(process.env.MONGODB_URI).then(() => console.log("Connected!"));
+app.get('/', (req, res) => {
+  res.send('Hey this is my API running 🥳')
+})
 
-app.listen(process.env.SERVER_PORT, () => {
-  console.log(`The server started on ${process.env.SERVER_PORT}`);
-});
+app.get('/about', (req, res) => {
+  res.send('This is my about route..... ')
+})
 
+// Export the Express API
 module.exports = app
