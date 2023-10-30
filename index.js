@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 // const routes = require("./routes");
@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 // app.use(routes);
 
-// require("dotenv").config();
+require("dotenv").config();
 
 // mongoose.connect(process.env.MONGODB_URI).then(() => console.log("Connected!"));
 
@@ -25,7 +25,7 @@ app.listen(PORT, () => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hey this is my API running 🥳");
+  res.send(`Hey this is my API running 🥳, ${process.env.MONGODB_URI}`);
 });
 
 app.get("/about", (req, res) => {
