@@ -1,7 +1,15 @@
-// index.js
-const express = require('express')
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const routes = require("./routes");
 
-const app = express()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+app.use(routes);
+
 const PORT = 4000
 
 app.listen(PORT, () => {
@@ -16,5 +24,4 @@ app.get('/about', (req, res) => {
   res.send('This is my about route..... ')
 })
 
-// Export the Express API
 module.exports = app
