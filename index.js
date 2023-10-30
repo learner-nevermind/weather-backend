@@ -12,7 +12,7 @@ app.use(cors());
 
 // require("dotenv").config();
 
-mongoose.connect('mongodb+srv://nevermind0825:mongo!2023@cluster0.qcymeag.mongodb.net/').then(() => console.log("Connected!"));
+// mongoose.connect('mongodb+srv://nevermind0825:mongo!2023@cluster0.qcymeag.mongodb.net/').then(() => console.log("Connected!"));
 
 // app.listen(process.env.SERVER_PORT, () => {
 //   console.log(`The server started on ${process.env.SERVER_PORT}`);
